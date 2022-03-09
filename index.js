@@ -9,8 +9,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 //username and password
-const myusername = 'user-cstc-admin-CgTM0'
-const mypassword = 'cstc-payment-IEEE-2022-password'
+const myusername = process.env.LOGIN_USER ?? "REDACTED"
+const mypassword = process.env.LOGIN_PASS ?? "REDACTED"
 
 let authToken = "";
 

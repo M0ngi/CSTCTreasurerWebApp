@@ -59,6 +59,7 @@ export default function MembersDisplay(props){
                         <th>Name</th>
                         <th>Email</th>
                         <th>Payment</th>
+                        <th>Amount</th>
                         <th>Status</th>
                     </tr>
                 </thead>
