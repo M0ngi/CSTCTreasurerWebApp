@@ -26,7 +26,12 @@ export default function MembersDisplay(props){
     const inverseSelected = ()=>{
         let count = 0;
         const updatedCheckedState = checkedUsers.map((item, ind) =>
-            props.displayMask[ind] ? (item ? false : (()=>{count++; return true;})() ) : item
+            props.displayMask[ind]  && 
+            (
+                (statusDisplay === 0) || 
+                (statusDisplay === 1 && props.rows[ind].paidFee) ||
+                (statusDisplay === 2 && !props.rows[ind].paidFee)
+            )? (item ? false : (()=>{count++; return true;})() ) : item
         );
         setCheckedState(updatedCheckedState);
         setSelectedCount(count);
