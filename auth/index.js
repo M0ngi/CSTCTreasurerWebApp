@@ -3,7 +3,7 @@ const requestIp = require('request-ip');
 
 const app = global.app;
 
-app.get("/api/signoutd", (req, res) =>{
+app.get("/api/signout", (req, res) =>{
     req.session.destroy();
     res.json({code: 200, res: "Logged out"})
 })
@@ -36,9 +36,9 @@ app.post("/api/authAdmin", (req, res) =>{
         return;
     }
 
-    res.setHeader('Access-Control-Allow-Credentials', 'true')
-    global.lockToIP = clientIp;
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
 
+    global.lockToIP = clientIp;
     req.session.userid = myusername;
 
     res.json({ code: 200 });

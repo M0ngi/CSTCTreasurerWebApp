@@ -28,7 +28,7 @@ function App() {
 
   return (
     <div className="App">
-      {loggedIn === true ? <HomeScreen loginState={(x)=>{setLoggedIn(x)}}/> : <LoginScreen loginState={(x)=>{setLoggedIn(x)}}/>}
+      {loggedIn === true ? <HomeScreen loginState={setLoggedIn}/> : <LoginScreen loginState={(x)=>{setLoggedIn(x)}}/>}
     </div>
   );
 }

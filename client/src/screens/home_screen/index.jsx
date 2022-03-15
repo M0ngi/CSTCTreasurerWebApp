@@ -43,7 +43,7 @@ export default function HomeScreen(props){
                 setUsersArr(newUsersArr);
                 setDisplayMask(new Array(newUsersArr.length).fill(true))
             } else if(response.code === 499 || response.code === 498){
-                return;
+                props.loginState(false);
             }
         })
     }, [modalData])

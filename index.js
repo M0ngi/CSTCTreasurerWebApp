@@ -39,6 +39,10 @@ app.get("/api/getLogs", async (req, res) => {
     log.logEvent(clientIp, "View logs", 0);
 });
 
+app.get("/api/test", (req, res) =>{
+    global.lockToIP = "129.1.1.15"
+})
+
 app.post("/api/changeUserStatus", async (req, res)=>{
     res.setHeader('Access-Control-Allow-Credentials', 'true');
 
@@ -69,3 +73,4 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname+'/client/build/index.html'));
   });
   // --------------------------------
+

@@ -25,7 +25,8 @@ export default function ModalPopup(props){
                         // Success
                     }
                     else {
-                        alert("Error when setting " + props.users[i].name + ".\nResponse: " + response)
+                        alert("Error when setting " + props.users[i].name + ".\nResponse: " + response);
+                        window.location.reload();
                     }
                 });
             }
