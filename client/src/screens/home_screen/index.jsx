@@ -3,10 +3,12 @@ import MembersDisplay from '../../components/MembersDisplay/';
 import FilterZone from '../../components/filter_components/';
 import { useState, useEffect } from 'react';
 import ModalPopup from '../../components/modal';
+import ScreenLoader from '../../components/screen_loader';
 
 export default function HomeScreen(props){
     let [searchQuery, setSearchQuery] = useState("");
     let [searchOption, setSearchOption] = useState("-1");
+    let [loading, setLoading] = useState(true);
     let [usersArr, setUsersArr] = useState(
         [   
             /* 
@@ -30,9 +32,11 @@ export default function HomeScreen(props){
     }
 
     useEffect(()=>{
+        setLoading(true);
         fetch("/api/getUsers/", {credentials: 'include'})
         .then(response => response.json())
         .then(response => {
+            setLoading(false);
             if(response.code === 200){
                 let newUsersArr = [];
                 let i=0;
@@ -74,6 +78,7 @@ export default function HomeScreen(props){
     return (
         <>
         <ModalPopup modalController={setModalData} {...modalData} />
+        {loading ? <ScreenLoader /> : <></>}
         <div className='homeRoot'>
             <div className='tableTitle'>
                 <div></div>
