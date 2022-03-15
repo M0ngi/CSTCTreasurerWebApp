@@ -10,6 +10,8 @@ const getCurrentDate = () => {
 const LEVELS = ["NORMAL", "HIGH", "CRITICAL"]
 
 module.exports.logEvent = (ip, event, level=0, comment="")=>{
+    console.log("[" + LEVELS[level] + "]" + "[" + getCurrentDate() + "]" + "[" + ip + "] " + event + (comment === "" ? "" : " - " + comment));
+    
     fs.appendFile(
         LOG_NAME, 
         "[" + LEVELS[level] + "]" + "[" + getCurrentDate() + "]" + "[" + ip + "] " + event + (comment === "" ? "" : " - " + comment) + "\n",

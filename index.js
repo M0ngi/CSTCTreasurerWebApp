@@ -49,11 +49,14 @@ app.post("/api/changeUserStatus", async (req, res)=>{
         var clientIp = requestIp.getClientIp(req);
         log.logEvent(clientIp, "Change user status", 2, "Invalid parameters");
 
+        console.log(clientIp + " error Missing parameters");
+
         return res.json({ code: 501, error: "Missing parameters"});
     }
 
     res.json( await firestore.updateUserPayment(req.body.uid, req.body.paid) );
-    
+    console.log(clientIp + " Change user status" + req.body.uid);
+
     var clientIp = requestIp.getClientIp(req);
     log.logEvent(clientIp, "Change user status", 2, "Change " + req.body.uid + " to " + (req.body.paid ? "paid" : "not paid"));
 })
