@@ -6,7 +6,7 @@ export default function Button(props){
             alert("You can select only 1 type of users at a time! Either paid or not paid, not both.");
             return;
         }
-        props.modalController({display: true, users:users, resetCheckbox:props.resetCheckbox })
+        props.modalController({type: 0, display: true, users:users, resetCheckbox:props.resetCheckbox })
     };
 
     let users = [];

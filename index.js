@@ -39,8 +39,26 @@ app.get("/api/getLogs", async (req, res) => {
     log.logEvent(clientIp, "View logs", 0);
 });
 
-app.get("/api/test", (req, res) =>{
-    global.lockToIP = "129.1.1.15"
+app.get("/api/setMailSent", async (req, res) =>{
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+
+    if(!auth.isUserAuthed("Change email status", req, res)) return;
+
+    if(!req.body.uid || req.body.emailSent === undefined){
+        var clientIp = requestIp.getClientIp(req);
+        log.logEvent(clientIp, "Change email status", 2, "Invalid parameters");
+
+        console.log(clientIp + " error Missing parameters");
+
+        return res.json({ code: 501, error: "Missing parameters"});
+    }
+
+    res.json( await firestore.updateUserEmailSent(req.body.uid, req.body.emailSent) );
+    console.log(clientIp + " Change email status" + req.body.uid);
+
+    var clientIp = requestIp.getClientIp(req);
+    log.logEvent(clientIp, "Change email status", 2, "Change " + req.body.uid + " to " + (req.body.emailSent ? "sent" : "not sent"));
+
 })
 
 app.post("/api/changeUserStatus", async (req, res)=>{

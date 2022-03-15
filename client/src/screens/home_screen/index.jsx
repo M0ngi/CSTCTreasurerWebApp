@@ -77,8 +77,8 @@ export default function HomeScreen(props){
 
     return (
         <>
-        <ModalPopup modalController={setModalData} {...modalData} />
-        {loading ? <ScreenLoader /> : <></>}
+        <ModalPopup preloaderController={setLoading} modalController={setModalData} {...modalData} />
+        {loading && modalData.display === false ? <ScreenLoader /> : <></>}
         <div className='homeRoot'>
             <div className='tableTitle'>
                 <div></div>

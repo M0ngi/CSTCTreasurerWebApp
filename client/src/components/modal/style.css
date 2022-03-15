@@ -2,6 +2,18 @@
     display: none;
 }
 
+.emailList{
+    width: 43vw;
+    height: fit-content;
+    min-height: 100px;
+}
+
+.selAll{
+    font-size: x-small;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
 .visible{
     display: block;
 }

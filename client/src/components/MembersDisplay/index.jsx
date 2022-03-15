@@ -48,9 +48,24 @@ export default function MembersDisplay(props){
         setStatusDisplay((statusDisplay+1) % 3)
     }
 
+    const exportPaidEmails = ()=>{
+        let users = [];
+        let i = 0;
+        while(props.rows[i]){
+            if(props.rows[i].paidFee === true && props.rows[i].emailSent === false ){
+                users.push(props.rows[i]);
+            }
+            i++;
+        }
+        props.modalController({type: 1, display: true, users:users})
+    }
+
     return (
         <div className='displayContainer'>
-            <div className='selectedDisplay'>
+            <div className='infoDisplay'>
+                <div className='viewEmails'>
+                    <button onClick={exportPaidEmails} className='clickable exportEmails'>Export emails</button>
+                </div>
                 <div className='container'>
                     {selectedCount} selected
                     <div className='setBtn'>

@@ -7,6 +7,20 @@ const MAX_PER_PAGE = 2;
 
 let usersArray = {};
 
+module.exports.updateUserEmailSent = async (uid, sent)=>{
+    let userDoc = firestore.doc("users/"+uid);
+    if(!((await userDoc.get()).exists)) return {code: 502, error: 'User not found.'};
+
+    if(typeof sent !== "boolean") return {code: 503, error: 'Invalid parameters.'};
+
+    await userDoc.update({emailSent: sent});
+
+    console.log(uid)
+
+    usersArray[uid].emailSent = sent;
+    return {code: 200, res: 'ok'};
+}
+
 module.exports.getUsers = async (page) => {
     let users = await auth.listUsers(page === -1 ? 1000 : MAX_PER_PAGE);
     while(page > 0){
@@ -28,7 +42,8 @@ module.exports.getUsers = async (page) => {
                     paidFee: true,
                     cin: "00000000",
                     payementMethod: "NONE",
-                    roomType: 0
+                    roomType: 0,
+                    emailSent: false
                 }
                 continue;
             }
@@ -39,7 +54,8 @@ module.exports.getUsers = async (page) => {
                 paidFee: data.paidFee ? true : false,
                 cin: data.cin,
                 payementMethod: data.payementMethod ? data.payementMethod : "Not set",
-                roomType: data.roomType
+                roomType: data.roomType,
+                emailSent: data.emailSent ?? false
             }
         }
 
@@ -57,13 +73,6 @@ module.exports.updateUserPayment = async (uid, paid)=>{
 
     await userDoc.update({paidFee: paid});
 
-    if(!usersArray[uid]){
-        const user = await auth.getUser(uid);
-        usersArray[uid] = {
-            email: user.email,
-            name: user.displayName ?? ""
-        }
-    }
     usersArray[uid].paidFee = paid;
     return {code: 200, res: 'ok'};
 }
